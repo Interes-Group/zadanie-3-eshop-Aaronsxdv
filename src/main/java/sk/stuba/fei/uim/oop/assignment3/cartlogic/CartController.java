@@ -42,4 +42,16 @@ public class CartController {
     public void deleteCart(@PathVariable("cid") long cid){
         this.service.deleteCart(cid);
     }
+
+    @RequestMapping(value = "/{cid}/add", method = RequestMethod.POST)      //add to shopping cart
+    public Cart addToCart(@PathVariable("cid") long cid,@RequestBody ProductInCart request){
+        return this.service.addToCart(cid,request);
+    }
+
+
+    /*@RequestMapping(value = "/{cid}/pay", method = RequestMethod.GET)
+    public Cart payCart(@PathVariable("cid") long cid){
+
+    }*/
+
 }

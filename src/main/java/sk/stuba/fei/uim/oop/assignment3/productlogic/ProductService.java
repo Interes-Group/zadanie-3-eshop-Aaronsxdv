@@ -11,7 +11,7 @@ import java.util.List;
 public class ProductService implements IProductService{
 
 
-    private ProductRepository repository;
+    ProductRepository repository;
 
     @Autowired
     public ProductService(ProductRepository repository) {
