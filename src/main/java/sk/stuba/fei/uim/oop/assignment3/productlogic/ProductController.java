@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.assignment3.logic;
+package sk.stuba.fei.uim.oop.assignment3.productlogic;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/product")
@@ -35,12 +34,12 @@ public class ProductController {
         return this.service.getProduct(id);
     }
 
-    @RequestMapping(value = "/{id}/ammount", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}/amount", method = RequestMethod.GET)
     public ProductAmmountResponse getProductAmount(@PathVariable("id") long id){
         return this.service.getProductAmmount(id);
     }
 
-    @RequestMapping(value = "/{id}/ammount", method = RequestMethod.POST)
+    @RequestMapping(value = "/{id}/amount", method = RequestMethod.POST)
     public ProductAmmountResponse addProductAmount(@PathVariable("id") long id,@RequestBody ProductAmountRequest request){
         return this.service.addProductAmmount(id,request);
     }

@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.assignment3.logic;
+package sk.stuba.fei.uim.oop.assignment3.productlogic;
 
 import lombok.Getter;
 

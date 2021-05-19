@@ -1,32 +1,21 @@
-package sk.stuba.fei.uim.oop.assignment3.logic;
+package sk.stuba.fei.uim.oop.assignment3.productlogic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
 public class ProductService implements IProductService{
 
 
-    private ProductPepository repository;
+    private ProductRepository repository;
 
     @Autowired
-    public ProductService(ProductPepository repository) {
+    public ProductService(ProductRepository repository) {
         this.repository = repository;
-        Product pr = new Product();
-        pr.setName("Computer");
-        pr.setAmmount(10);
-        pr.setDescription("A normal Computer.");
-        this.repository.save(pr);
-        Product pr2 = new Product();
-        pr2.setName("Mouse");
-        pr2.setAmmount(5);
-        pr2.setDescription("A normal Mouse.");
-        this.repository.save(pr2);
     }
 
     @Override

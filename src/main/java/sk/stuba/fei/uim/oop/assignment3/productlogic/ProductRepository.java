@@ -1,12 +1,11 @@
-package sk.stuba.fei.uim.oop.assignment3.logic;
+package sk.stuba.fei.uim.oop.assignment3.productlogic;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Repository
-public interface ProductPepository extends CrudRepository<Product,Long> {
+public interface ProductRepository extends CrudRepository<Product,Long> {
     List<Product> findAll();
 }
