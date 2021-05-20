@@ -9,7 +9,7 @@ public interface IProductService {
     Product getProduct(long id);
     ProductAmountResponse getProductamount(long id);
     ProductAmountResponse addProductamount(long id,ProductAmountRequest request);
-    ProductResponse updateProduct(long id,ProductRequest request);
+    Product updateProduct(long id,UpdateProductRequest request);
     Product addProduct(ProductRequest request);
     void deleteProduct(long id);
 }

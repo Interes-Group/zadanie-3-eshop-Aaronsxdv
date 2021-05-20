@@ -47,7 +47,7 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ProductResponse updateProduct(@PathVariable("id") long id,@RequestBody ProductRequest request){
+    public Product updateProduct(@PathVariable("id") long id,@RequestBody UpdateProductRequest request){
         return this.service.updateProduct(id,request);
     }
 

@@ -62,17 +62,16 @@ public class ProductService implements IProductService{
     }
     
     @Override
-    public ProductResponse updateProduct(long id,ProductRequest request){
-        Product CustomProduct  = repository.findById(id)
-                .orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND));
-        CustomProduct.setName(request.getName());
-        CustomProduct.setAmount(request.getAmount());
-        CustomProduct.setDescription(request.getDescription());
-        CustomProduct.setUnit(request.getUnit());
-        CustomProduct.setPrice(request.getPrice());
+    public Product updateProduct(long id,UpdateProductRequest request){
+        Product CustomProduct  = getProduct(id);
+        if(request.getName() != null){
+            CustomProduct.setName(request.getName());
+        }
+        if(request.getDescription() != null){
+            CustomProduct.setDescription(request.getDescription());
+        }
         repository.save(CustomProduct);
-        ProductResponse ans = new ProductResponse(CustomProduct);
-        return ans;
+        return CustomProduct;
     }
 
     @Override
