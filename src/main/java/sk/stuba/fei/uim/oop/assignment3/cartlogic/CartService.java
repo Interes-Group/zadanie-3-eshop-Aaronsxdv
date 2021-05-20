@@ -104,6 +104,7 @@ public class CartService implements ICartService {
 
 
         if(CartToAdd.isPayed()){
+            //System.out.printf("");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if(productToAdd.getAmount() < request.getAmount()){
@@ -148,6 +149,7 @@ public class CartService implements ICartService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if(CartToAdd.getShoppingList().isEmpty()){
+            CartToAdd.setPayed(true);
             return new ResponseEntity<>("0",HttpStatus.OK);
         }
         for(ProductInCart p: CartToAdd.getShoppingList()){
