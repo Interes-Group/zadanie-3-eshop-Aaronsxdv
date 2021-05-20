@@ -11,6 +11,7 @@ import sk.stuba.fei.uim.oop.assignment3.productlogic.Product;
 import sk.stuba.fei.uim.oop.assignment3.productlogic.ProductRepository;
 import sk.stuba.fei.uim.oop.assignment3.productlogic.ProductService;
 
+import java.lang.annotation.Repeatable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,14 +97,14 @@ public class CartService implements ICartService {
 
     }*/
     @Override
-    public ResponseEntity<Cart> addToCart(long id, ProductInCart request) throws Exception{
+    public ResponseEntity<Cart> addToCart(long id, ProductInCart request){
 
         Cart CartToAdd = getCart(id);
         Product productToAdd= servicex.getProduct(request.getProductId());
 
 
         if(CartToAdd.isPayed()){
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         if(productToAdd.getAmount() < request.getAmount()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -113,8 +114,6 @@ public class CartService implements ICartService {
                 if(p.getProductId() == request.getProductId()){
                     p.setAmount(p.getAmount() + request.getAmount());
                     productToAdd.setAmount(productToAdd.getAmount() - request.getAmount());
-                    System.out.printf("\nProduct id: %d\n",CartToAdd.getShoppingList().get(0).productId);
-                    System.out.printf("Product amount: %d\n",CartToAdd.getShoppingList().get(0).amount);
                     return new ResponseEntity<>(repository.save(CartToAdd),HttpStatus.OK);
                 }
             }
@@ -140,7 +139,23 @@ public class CartService implements ICartService {
 
     }
 
-    /*@Override
-    public ResponseEntity<>*/
+    @Override
+    public ResponseEntity<String> payForCart(long id){
+        Cart CartToAdd = getCart(id);
+        double ansprice = 0;
+        double pricex = 0;
+        if(CartToAdd.isPayed()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if(CartToAdd.getShoppingList().isEmpty()){
+            return new ResponseEntity<>("0",HttpStatus.OK);
+        }
+        for(ProductInCart p: CartToAdd.getShoppingList()){
+            pricex = (p.amount) * servicex.getProduct(p.getProductId()).getPrice();
+            ansprice += pricex;
+        }
+        CartToAdd.setPayed(true);
+        return new ResponseEntity<>(String.valueOf(ansprice),HttpStatus.OK);
+    }
 
 }

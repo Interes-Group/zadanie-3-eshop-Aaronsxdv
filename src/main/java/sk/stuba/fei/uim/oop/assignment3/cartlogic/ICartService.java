@@ -12,5 +12,6 @@ public interface ICartService {
     Cart getCart(long cid);
     Cart addCart();
     void deleteCart(long cid);
-    ResponseEntity<Cart> addToCart(long cid, ProductInCart request) throws Exception;
+    ResponseEntity<Cart> addToCart(long cid, ProductInCart request);
+    ResponseEntity<String> payForCart(long id);
 }

@@ -47,14 +47,14 @@ public class CartController {
     }
 
     @RequestMapping(value = "/{cid}/add", method = RequestMethod.POST)      //add to shopping cart
-    public ResponseEntity<Cart> addToCart(@PathVariable("cid") long cid, @RequestBody ProductInCart request) throws Exception{
+    public ResponseEntity<Cart> addToCart(@PathVariable("cid") long cid, @RequestBody ProductInCart request){
         return this.service.addToCart(cid,request);
     }
 
 
-    /*@RequestMapping(value = "/{cid}/pay", method = RequestMethod.GET)
-    public Cart payCart(@PathVariable("cid") long cid){
-
-    }*/
+    @RequestMapping(value = "/{cid}/pay", method = RequestMethod.GET)
+    public ResponseEntity<String> payForCart(@PathVariable("cid") long cid){
+        return this.service.payForCart(cid);
+    }
 
 }
