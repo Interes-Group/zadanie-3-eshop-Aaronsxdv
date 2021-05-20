@@ -18,7 +18,7 @@ import java.util.List;
 public class Cart implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long cartId;
-    private ArrayList<ProductInCart> cartProducts;
+    private long Id;
+    private ArrayList<ProductInCart> shoppingList;
     private boolean payed;
 }

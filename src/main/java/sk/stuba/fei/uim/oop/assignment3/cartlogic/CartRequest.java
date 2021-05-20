@@ -10,6 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class CartRequest {
-    private ArrayList<ProductInCart> cartProducts;
+    private ArrayList<ProductInCart> shoppingList;
     private boolean payed;
 }

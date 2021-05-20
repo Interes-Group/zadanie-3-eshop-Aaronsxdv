@@ -7,10 +7,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProductAmmountResponse {
+public class ProductAmountResponse {
     int amount;
-    public ProductAmmountResponse(int ammount){
-        this.amount = ammount;
+    public ProductAmountResponse(int amount){
+        this.amount = amount;
     }
 
 }

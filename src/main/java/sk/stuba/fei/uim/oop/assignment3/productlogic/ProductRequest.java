@@ -10,7 +10,7 @@ public class ProductRequest {
 
     private String name;
     private String description;
-    private int ammount;
+    private int amount;
     private String unit;
     private double price;
 }

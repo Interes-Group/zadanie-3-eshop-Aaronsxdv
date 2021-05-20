@@ -12,14 +12,14 @@ import javax.persistence.Id;
 @Entity
 @Getter
 @Setter
-public class Product {
+public class Product{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
     private String description;
-    private int ammount;
+    private int amount;
     private String unit;
     private double price;
 

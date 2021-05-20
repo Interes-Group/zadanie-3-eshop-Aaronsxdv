@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop.assignment3.productlogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class ProductService implements IProductService{
     public Product addProduct(ProductRequest request){
         Product newProduct = new Product();
         newProduct.setName(request.getName());
-        newProduct.setAmmount(request.getAmmount());
+        newProduct.setAmount(request.getAmount());
         newProduct.setDescription(request.getDescription());
         newProduct.setUnit(request.getUnit());
         newProduct.setPrice(request.getPrice());
@@ -41,22 +42,22 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public ProductAmmountResponse getProductAmmount(long id){
+    public ProductAmountResponse getProductamount(long id){
         Product CustomProduct  = repository.findById(id)
                 .orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND));
-        ProductAmmountResponse ans = new ProductAmmountResponse(CustomProduct.getAmmount());
+        ProductAmountResponse ans = new ProductAmountResponse(CustomProduct.getAmount());
         return ans;
     }
 
     @Override
-    public ProductAmmountResponse addProductAmmount(long id,ProductAmountRequest request){
+    public ProductAmountResponse addProductamount(long id,ProductAmountRequest request){
         Product CustomProduct  = repository.findById(id)
                 .orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND));
-        int a = CustomProduct.getAmmount();
+        int a = CustomProduct.getAmount();
         int b = request.getAmount();
-        CustomProduct.setAmmount(a+b);
+        CustomProduct.setAmount(a+b);
         repository.save(CustomProduct);
-        ProductAmmountResponse ans = new ProductAmmountResponse(CustomProduct.getAmmount());
+        ProductAmountResponse ans = new ProductAmountResponse(CustomProduct.getAmount());
         return ans;
     }
     
@@ -65,7 +66,7 @@ public class ProductService implements IProductService{
         Product CustomProduct  = repository.findById(id)
                 .orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND));
         CustomProduct.setName(request.getName());
-        CustomProduct.setAmmount(request.getAmmount());
+        CustomProduct.setAmount(request.getAmount());
         CustomProduct.setDescription(request.getDescription());
         CustomProduct.setUnit(request.getUnit());
         CustomProduct.setPrice(request.getPrice());

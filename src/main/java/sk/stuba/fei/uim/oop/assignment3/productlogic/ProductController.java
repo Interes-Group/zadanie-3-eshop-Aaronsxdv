@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.productlogic;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class ProductController {
     }
 
     @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
     public ProductResponse addProduct(@RequestBody ProductRequest request){
         return new ProductResponse(this.service.addProduct(request));
     }
@@ -35,13 +37,13 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/{id}/amount", method = RequestMethod.GET)
-    public ProductAmmountResponse getProductAmount(@PathVariable("id") long id){
-        return this.service.getProductAmmount(id);
+    public ProductAmountResponse getProductAmount(@PathVariable("id") long id){
+        return this.service.getProductamount(id);
     }
 
     @RequestMapping(value = "/{id}/amount", method = RequestMethod.POST)
-    public ProductAmmountResponse addProductAmount(@PathVariable("id") long id,@RequestBody ProductAmountRequest request){
-        return this.service.addProductAmmount(id,request);
+    public ProductAmountResponse addProductAmount(@PathVariable("id") long id,@RequestBody ProductAmountRequest request){
+        return this.service.addProductamount(id,request);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

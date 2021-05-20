@@ -2,6 +2,7 @@ package sk.stuba.fei.uim.oop.assignment3.cartlogic;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import sk.stuba.fei.uim.oop.assignment3.productlogic.Product;
 import sk.stuba.fei.uim.oop.assignment3.productlogic.ProductRequest;
@@ -29,6 +30,7 @@ public class CartController {
     }
 
     @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
     public CartResponse addCart(){
         return new CartResponse(this.service.addCart());
     }
