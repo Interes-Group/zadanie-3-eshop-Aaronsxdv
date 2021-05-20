@@ -3,23 +3,26 @@ package sk.stuba.fei.uim.oop.assignment3.cartlogic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
+import sk.stuba.fei.uim.oop.assignment3.productlogic.IProductService;
 import sk.stuba.fei.uim.oop.assignment3.productlogic.Product;
 import sk.stuba.fei.uim.oop.assignment3.productlogic.ProductRepository;
+import sk.stuba.fei.uim.oop.assignment3.productlogic.ProductService;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CartService implements ICartService {
 
-    @Autowired
+
+
     private CartRepository repository;
+
     @Autowired
-    private ProductRepository productRepository;
+    private IProductService servicex;
 
     @Autowired
     public CartService(CartRepository repository) {
@@ -51,7 +54,7 @@ public class CartService implements ICartService {
         repository.delete(CustomCart);
     }
 
-    @Override
+    /*@Override
     public Cart addToCart(long id,ProductInCart request){
         Product productToAdd= productRepository.findById(request.getProdid())
                 .orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND));
@@ -64,7 +67,7 @@ public class CartService implements ICartService {
         if(productToAdd.getAmount() < request.getAmount()){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-        if(CartToAdd.getShoppingList() != null){
+        if(!CartToAdd.getShoppingList().isEmpty()){
             for(ProductInCart p: CartToAdd.getShoppingList()){
                 if(p.getProdid() == request.getProdid()){
                     p.setAmount(p.getAmount() + request.getAmount());
@@ -75,7 +78,7 @@ public class CartService implements ICartService {
         }
 
         ProductInCart ansp = new ProductInCart(request.getProdid(), request.getAmount());
-        if(CartToAdd.getShoppingList() == null){
+        if(CartToAdd.getShoppingList().isEmpty()){
             ArrayList<ProductInCart> x = new ArrayList<ProductInCart>();
             x.add(ansp);
             productToAdd.setAmount(productToAdd.getAmount() - request.getAmount());
@@ -91,7 +94,53 @@ public class CartService implements ICartService {
         repository.save(CartToAdd);
         return CartToAdd;
 
+    }*/
+    @Override
+    public ResponseEntity<Cart> addToCart(long id, ProductInCart request) throws Exception{
+
+        Cart CartToAdd = getCart(id);
+        Product productToAdd= servicex.getProduct(request.getProductId());
+
+
+        if(CartToAdd.isPayed()){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        if(productToAdd.getAmount() < request.getAmount()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if(!CartToAdd.getShoppingList().isEmpty()){
+            for(ProductInCart p: CartToAdd.getShoppingList()){
+                if(p.getProductId() == request.getProductId()){
+                    p.setAmount(p.getAmount() + request.getAmount());
+                    productToAdd.setAmount(productToAdd.getAmount() - request.getAmount());
+                    System.out.printf("\nProduct id: %d\n",CartToAdd.getShoppingList().get(0).productId);
+                    System.out.printf("Product amount: %d\n",CartToAdd.getShoppingList().get(0).amount);
+                    return new ResponseEntity<>(repository.save(CartToAdd),HttpStatus.OK);
+                }
+            }
+        }
+
+        ProductInCart ansp = new ProductInCart(request.getProductId(), request.getAmount());
+        if(CartToAdd.getShoppingList().isEmpty()){
+            ArrayList<ProductInCart> x = new ArrayList<ProductInCart>();
+            x.add(ansp);
+            productToAdd.setAmount(productToAdd.getAmount() - request.getAmount());
+            CartToAdd.setShoppingList(x);
+            return new ResponseEntity<>(repository.save(CartToAdd),HttpStatus.OK);
+
+        }
+        else{
+            ArrayList<ProductInCart> x = CartToAdd.getShoppingList();
+            x.add(ansp);
+            productToAdd.setAmount(productToAdd.getAmount() - request.getAmount());
+            CartToAdd.setShoppingList(x);
+            return new ResponseEntity<>(repository.save(CartToAdd),HttpStatus.OK);
+        }
+
+
     }
 
+    /*@Override
+    public ResponseEntity<>*/
 
 }

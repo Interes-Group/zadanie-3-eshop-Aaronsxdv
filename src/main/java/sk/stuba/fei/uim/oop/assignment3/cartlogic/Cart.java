@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -21,4 +22,7 @@ public class Cart implements Serializable {
     private long Id;
     private ArrayList<ProductInCart> shoppingList;
     private boolean payed;
+    public Cart(){
+        this.shoppingList = new ArrayList<> ();
+    }
 }

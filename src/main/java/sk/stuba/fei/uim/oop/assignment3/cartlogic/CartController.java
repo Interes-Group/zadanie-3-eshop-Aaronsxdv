@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop.assignment3.cartlogic;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import sk.stuba.fei.uim.oop.assignment3.productlogic.Product;
 import sk.stuba.fei.uim.oop.assignment3.productlogic.ProductRequest;
@@ -46,7 +47,7 @@ public class CartController {
     }
 
     @RequestMapping(value = "/{cid}/add", method = RequestMethod.POST)      //add to shopping cart
-    public Cart addToCart(@PathVariable("cid") long cid,@RequestBody ProductInCart request){
+    public ResponseEntity<Cart> addToCart(@PathVariable("cid") long cid, @RequestBody ProductInCart request) throws Exception{
         return this.service.addToCart(cid,request);
     }
 

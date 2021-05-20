@@ -10,10 +10,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class ProductInCart implements Serializable {
-    long prodid;
-    int amount;
-    public ProductInCart(long id,int amount){
-        this.prodid = id;
+    long productId;
+    long amount;
+    public ProductInCart(long id,long amount){
+        this.productId = id;
         this.amount = amount;
     }
 }

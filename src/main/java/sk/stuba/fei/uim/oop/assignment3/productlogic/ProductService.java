@@ -53,8 +53,8 @@ public class ProductService implements IProductService{
     public ProductAmountResponse addProductamount(long id,ProductAmountRequest request){
         Product CustomProduct  = repository.findById(id)
                 .orElseThrow(() ->new ResponseStatusException(HttpStatus.NOT_FOUND));
-        int a = CustomProduct.getAmount();
-        int b = request.getAmount();
+        long a = CustomProduct.getAmount();
+        long b = request.getAmount();
         CustomProduct.setAmount(a+b);
         repository.save(CustomProduct);
         ProductAmountResponse ans = new ProductAmountResponse(CustomProduct.getAmount());

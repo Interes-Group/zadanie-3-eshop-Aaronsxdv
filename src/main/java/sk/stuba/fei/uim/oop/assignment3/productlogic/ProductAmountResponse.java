@@ -8,8 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProductAmountResponse {
-    int amount;
-    public ProductAmountResponse(int amount){
+    long amount;
+    public ProductAmountResponse(long amount){
         this.amount = amount;
     }
 
